@@ -22,23 +22,20 @@ public class Hamming {
 			if(IsBitParidade(i+1)){				
 				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransfer);
 				System.out.println(bit);
+				System.out.println(i+1);
 				int sum = 0;				
-				for(int b : bit){
-					System.out.println("somando: " + b);
+				for(int b : bit){					
 					sum += Integer.parseInt(this.bitTransfer.charAt(b-1)+"");					
 				}					
 				System.out.println(sum);
 				if(this.paridade.equals("par") && sum % 2 == 0){
-					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);
-					System.out.println("apos: "+ this.bitTransferred);					
+					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);						
 				}
 				else if(this.paridade.equals("impar") && sum % 2 != 0){
-					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);
-					System.out.println("apos: "+ this.bitTransferred);
+					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);					
 				}
 				else{
-					this.bitTransferred = this.utilsChange(i, "1", this.bitTransferred);
-					System.out.println("apos: "+ this.bitTransferred);
+					this.bitTransferred = this.utilsChange(i, "1", this.bitTransferred);					
 				}
 						
 			}			
@@ -65,13 +62,14 @@ public class Hamming {
 	
 	public List<Integer> calculaBitParidade(int bit, String transfer){
 		List<Integer> calculateNumbers = new ArrayList<>();				
-		for(int i = transfer.length() - 1; i > 0 ; i--){
+		for(int i = transfer.length(); i > 0 ; i--){
 			int sum = 0;
 			if(!IsBitParidade(i)){				
 				for(int bitParidade:this.bitsParidade){					
 					if(i > bitParidade && sum + bitParidade <= i){						
 						sum+=bitParidade;
 						if(bitParidade == bit){
+							System.out.println(i);
 							calculateNumbers.add(i);
 						}
 					}
@@ -97,7 +95,7 @@ public class Hamming {
 	
 	public void gerarBitsParidade() {
 		this.configurarPalavra();
-		for (int i = this.bitTransfer.length() - 1; i >= 0; i--){			
+		for (int i = this.bitTransfer.length(); i >= 0; i--){			
 			if(this.IsBitParidade(i+1)){				
 				this.bitsParidade.add(i+1);	
 			}
