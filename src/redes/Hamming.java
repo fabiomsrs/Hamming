@@ -17,17 +17,15 @@ public class Hamming {
 	
 	public String gerarBitTransferred(){								
 		this.gerarBitsParidade();
-		this.bitTransferred = this.bitTransfer;	
-		for(int i = 0; i < this.bitTransfer.length(); i++){				
+		this.bitTransferred = this.bitTransfer;			
+		for(int i = 0; i < this.bitTransfer.length(); i++){			
 			if(IsBitParidade(i+1)){				
-				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransfer);
-				System.out.println(bit);
-				System.out.println(i+1);
+				
+				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransfer);								
 				int sum = 0;				
 				for(int b : bit){					
 					sum += Integer.parseInt(this.bitTransfer.charAt(b-1)+"");					
-				}					
-				System.out.println(sum);
+				}									
 				if(this.paridade.equals("par") && sum % 2 == 0){
 					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);						
 				}
@@ -68,8 +66,7 @@ public class Hamming {
 				for(int bitParidade:this.bitsParidade){					
 					if(i > bitParidade && sum + bitParidade <= i){						
 						sum+=bitParidade;
-						if(bitParidade == bit){
-							System.out.println(i);
+						if(bitParidade == bit){							
 							calculateNumbers.add(i);
 						}
 					}
@@ -80,14 +77,17 @@ public class Hamming {
 		return calculateNumbers;
 	}
 	
-	public String utilsInsertInto(int position,String insert, String inserted){
-		inserted = inserted.substring(0, position) + insert + inserted.substring(position, inserted.length());
+	public String utilsInsertInto(int position,String insert, String inserted){			
+		/*System.out.println(position+1);
+		System.out.println("-"+ inserted.substring(0, position) +"-"+"0" + "-"+inserted.substring(position, inserted.length()));*/
+		inserted = inserted.substring(0, position) + insert + inserted.substring(position, inserted.length());		
+		
 		return inserted;
 	}
 	
 	public String utilsChange(int position,String insert, String inserted){
 		if(position > 0)
-			inserted = inserted.substring(0, position-1) + insert + inserted.substring(position, inserted.length());
+			inserted = inserted.substring(0, position) + insert + inserted.substring(position+1, inserted.length());
 		else
 			inserted = insert + inserted.substring(position+1, inserted.length());
 		return inserted;
@@ -104,7 +104,7 @@ public class Hamming {
 	
 	public void configurarPalavra() {
 		
-		for (int i = this.bitTransfer.length() - 1; i >= 0; i--){			
+		for (int i = 0; i < this.bitTransfer.length(); i++){			
 			if(this.IsBitParidade(i+1)){
 				this.bitTransfer = this.utilsInsertInto(i, "0", this.bitTransfer);					
 			}
