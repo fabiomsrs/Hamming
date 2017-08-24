@@ -5,9 +5,10 @@ public class teste {
 	public static void main(String[] args) {
 		Hamming teste = new Hamming();
 		
-		teste.setBitTransfer("1011");				
-		teste.setParidade("par");				
-		System.out.println(teste.gerarBitTransferred());
+		teste.setBitTransferred("0010011");				
+		teste.setParidade("par");
+		teste.gerarBitsParidade(teste.getBitTransferred());
+		teste.chacarErros();
 		
 	}
 }

@@ -15,16 +15,17 @@ public class Hamming {
 		 this.bitTransferred = "";
 	}
 	
-	public String gerarBitTransferred(){								
-		this.gerarBitsParidade();
-		this.bitTransferred = this.bitTransfer;			
+	public String gerarBitTransferred(){
+		this.configurarPalavra();
+		this.bitTransferred = this.bitTransfer;
+		this.gerarBitsParidade(this.bitTransferred);				
 		for(int i = 0; i < this.bitTransfer.length(); i++){			
 			if(IsBitParidade(i+1)){				
 				
-				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransfer);								
+				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransferred);								
 				int sum = 0;				
 				for(int b : bit){					
-					sum += Integer.parseInt(this.bitTransfer.charAt(b-1)+"");					
+					sum += Integer.parseInt(this.bitTransferred.charAt(b-1)+"");					
 				}									
 				if(this.paridade.equals("par") && sum % 2 == 0){
 					this.bitTransferred = this.utilsChange(i, "0", this.bitTransferred);						
@@ -73,6 +74,7 @@ public class Hamming {
 				}
 			}			
 		}		
+		System.out.println(calculateNumbers);
 		
 		return calculateNumbers;
 	}
@@ -93,13 +95,12 @@ public class Hamming {
 		return inserted;
 	}
 	
-	public void gerarBitsParidade() {
-		this.configurarPalavra();
-		for (int i = this.bitTransfer.length(); i >= 0; i--){			
+	public void gerarBitsParidade(String palavra) {		
+		for (int i = palavra.length()-1; i >= 0; i--){			
 			if(this.IsBitParidade(i+1)){				
 				this.bitsParidade.add(i+1);	
 			}
-		}		
+		}
 	}
 	
 	public void configurarPalavra() {
@@ -111,6 +112,32 @@ public class Hamming {
 		}		
 	}	
 	
+	public void chacarErros(){
+		int contErros = 0;
+		System.out.println(this.bitTransferred);
+		for(int i = 0; i < this.bitTransferred.length(); i++){			
+			if(IsBitParidade(i+1)){				
+				
+				List<Integer> bit = this.calculaBitParidade(i+1, this.bitTransferred);								
+				int sum = 0;				
+				for(int b : bit){					
+					sum += Integer.parseInt(this.bitTransferred.charAt(b-1)+"");					
+				}	
+				System.out.println("soma: "+sum+ " "+ this.bitTransferred.charAt(i));
+				if(this.paridade.equals("par") && sum % 2 == 0 && this.bitTransferred.charAt(i) != '0'){
+					System.out.println("Error bit paridade "+ (i+1));
+					contErros++;
+				}
+				else if(this.paridade.equals("impar") && sum % 2 != 0 && this.bitTransferred.charAt(i) != '1'){
+					System.out.println("Error bit paridade "+ (i+1));
+					contErros++;
+				}										
+			}			
+		}
+		if(contErros == 0){
+			System.out.println("Palavra esta correta");
+		}
+	}
 	public String getBitTransfer() {
 		return bitTransfer;
 	}
