@@ -123,15 +123,23 @@ public class Hamming {
 				for(int b : bit){					
 					sum += Integer.parseInt(this.bitTransferred.charAt(b-1)+"");					
 				}	
-				System.out.println("soma: "+sum+ " "+ this.bitTransferred.charAt(i));
-				if(this.paridade.equals("par") && sum % 2 == 0 && this.bitTransferred.charAt(i) != '0'){
+				System.out.println("soma: "+sum+ " "+ "BitParidade "+ (i+1) + " = "+ this.bitTransferred.charAt(i));
+				if(this.paridade.equals("par") && sum % 2 == 0 && Integer.parseInt(this.bitTransferred.charAt(i)+"") == 1){
 					System.out.println("Error bit paridade "+ (i+1));
 					contErros++;
 				}
-				else if(this.paridade.equals("impar") && sum % 2 != 0 && this.bitTransferred.charAt(i) != '1'){
+				else if(this.paridade.equals("par") && sum % 2 != 0 && Integer.parseInt(this.bitTransferred.charAt(i)+"") == 0){
 					System.out.println("Error bit paridade "+ (i+1));
 					contErros++;
-				}										
+				}
+				else if(this.paridade.equals("impar") && sum % 2 != 0 && Integer.parseInt(this.bitTransferred.charAt(i)+"") == 0){
+					System.out.println("Error bit paridade "+ (i+1));
+					contErros++;
+				}
+				else if(this.paridade.equals("impar") && sum % 2 == 0 && Integer.parseInt(this.bitTransferred.charAt(i)+"") == 1){
+					System.out.println("Error bit paridade "+ (i+1));
+					contErros++;
+				}	
 			}			
 		}
 		if(contErros == 0){
